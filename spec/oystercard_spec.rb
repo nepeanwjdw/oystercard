@@ -19,14 +19,6 @@ describe Oystercard do
       message = "The maximum balance is £#{max_b}"
       expect { subject.top_up(1) }.to raise_error(message)
     end
-
-    it 'is initially not in a journey' do
-      expect(subject).not_to be_in_journey
-    end
-
-    it 'has an empty list of journeys by default' do
-      expect(subject.journeys).to be_empty
-    end
   end
 
   describe '#touch_in' do
@@ -52,35 +44,11 @@ describe Oystercard do
       end
       describe '#touch_out' do
         context 'when oystercard is already in a journey' do
-          it 'when touched out it changes entry_station to nil' do
-            subject.touch_out(exit_station)
-            expect(subject).not_to be_in_journey
-          end
           it 'when touched out it deducts the minimum charge' do
             expect{ subject.touch_out(exit_station) }.to change{ subject.balance }.by(-min_c)
           end
-          it 'stores exit station' do
-            subject.touch_out(exit_station)
-            expect(subject.exit_station).to eq exit_station
-          end
-        end
-      end
-      describe '#touch_in' do
-        context 'when oystercard is not already in a journey' do
-          it 'stores the entry station' do
-            expect(subject.entry_station).to eq entry_station
-          end
-        end
-      end
-      describe '#update_journeys' do
-        let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
-
-        it 'stores a journey' do
-          subject.touch_out(exit_station)
-          expect(subject.journeys).to include journey
         end
       end
     end
   end
-
 end

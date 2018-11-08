@@ -26,6 +26,7 @@ class Oystercard
   end
 
   def touch_in(entry_station)
+    touch_out("Unknown Station") if in_journey?
     fail 'Insufficient balance to touch in' if @balance < MINIMUM_BALANCE
     @journey = Journey.new(entry_station)
   end

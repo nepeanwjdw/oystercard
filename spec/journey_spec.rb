@@ -1,28 +1,25 @@
+require 'oystercard'
 require 'journey'
 
 describe Journey do
   let(:oystercard) { double :oystercard }
 
-  it 'is initially not in a journey' do
-    expect(subject).not_to be_in_journey
-  end
-
-  it 'has an empty list of journeys by default' do
-    expect(subject.journeys).to be_empty
-  end
+  min_b = Oystercard::MINIMUM_BALANCE
+  min_c = Oystercard::MINIMUM_CHARGE
+  max_b = Oystercard::MAXIMUM_BALANCE
 
   describe 'a group of tests that require a top_up' do
     before do
-      subject.top_up(min_b)
+      oystercard.top_up(min_b)
     end
     describe 'a group of tests that also require touch_in' do
       before do
-        subject.touch_in(entry_station)
+        oystercard.touch_in(entry_station)
       end
       describe '#touch_out' do
         context 'when oystercard is already in a journey' do
           it 'when touched out it changes entry_station to nil' do
-            subject.touch_out(exit_station)
+            oystercard.touch_out(exit_station)
             expect(subject).not_to be_in_journey
           end
           context 'when oystercard is already in a journey' do

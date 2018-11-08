@@ -14,6 +14,14 @@ describe Oystercard do
       expect(subject.balance).to eq 0
     end
 
+    it 'is initially not in a journey' do
+      expect(subject).not_to be_in_journey
+    end
+
+    it 'has an empty list of journeys by default' do
+      expect(subject.journeys).to be_empty
+    end
+
     it 'should have a maximum balance of £90' do
       subject.top_up(max_b)
       message = "The maximum balance is £#{max_b}"

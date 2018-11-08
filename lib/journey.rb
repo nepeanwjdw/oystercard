@@ -15,6 +15,7 @@ class Journey
   end
 
   def fare
+    return PENALTY_FARE if @journey[:entry_station] == "Unknown Station"
     return PENALTY_FARE if @journey[:exit_station] == "Unknown Station"
   end
 

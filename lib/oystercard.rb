@@ -32,6 +32,7 @@ class Oystercard
   end
 
   def touch_out(exit_station)
+    @journey = Journey.new("Unknown Station") if !in_journey?
     @journey.finish(exit_station)
     update_journeys
     deduct
